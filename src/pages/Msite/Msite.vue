@@ -1,114 +1,25 @@
 <template>
   <section class="msite on">
-    <Header title="深圳市宝安区西部硅谷B区">
-      <span slot="left" class="header-search"><i class="iconfont icon-sousuo"></i></span>
-      <span slot="right" class="header-login">登录|注册</span>
+    <Header :title="address">
+      <span slot="left" class="header-search" @click="goTo('/search')"><i class="iconfont icon-sousuo"></i></span>
+      <span slot="right" class="header-login" @click="goTo('/login')">登录|注册</span>
     </Header>
     <nav>
-      <div class="swiper-container">
+      <div class="swiper-container" v-if="categories.length>0">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <a href="javascript:;">
+          <div class="swiper-slide" v-for="(categories, index) in categoriesArr" :key="index">
+            <a href="javascript:;" v-for="(category, index) in categories" :key="index">
               <div class="header-nav-image">
-                <img src="./images/nav/1.jpg" alt="">
+                <img :src="'https://fuss10.elemecdn.com' + category.image_url" alt="">
               </div>
-              <span>甜品饮品</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/2.jpg" alt="">
-              </div>
-              <span>商超便利</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/3.jpg" alt="">
-              </div>
-              <span>美食</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/4.jpg" alt="">
-              </div>
-              <span>简餐</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/5.jpg" alt="">
-              </div>
-              <span>新店特惠</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/6.jpg" alt="">
-              </div>
-              <span>准时达</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/7.jpg" alt="">
-              </div>
-              <span>预定早餐</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/8.jpg" alt="">
-              </div>
-              <span>土豪推荐</span>
-            </a>
-          </div>
-          <div class="swiper-slide">
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/9.jpg" alt="">
-              </div>
-              <span>新店特惠</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/10.jpg" alt="">
-              </div>
-              <span>准时达</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/11.jpg" alt="">
-              </div>
-              <span>预定早餐</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/12.jpg" alt="">
-              </div>
-              <span>土豪推荐</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/13.jpg" alt="">
-              </div>
-              <span>甜品饮品</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/14.jpg" alt="">
-              </div>
-              <span>商超便利</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/5.jpg" alt="">
-              </div>
-              <span>美食</span>
-            </a>
-            <a href="javascript:;">
-              <div class="header-nav-image">
-                <img src="./images/nav/4.jpg" alt="">
-              </div>
-              <span>简餐</span>
+              <span>{{category.title}}</span>
             </a>
           </div>
         </div>
         <div class="swiper-pagination"></div>
+      </div>
+      <div v-else>
+        <img src="./images/msite_back.svg" alt="back">
       </div>
     </nav>
     <footer>
@@ -125,16 +36,47 @@
   import Swiper from 'swiper'
   import 'swiper/dist/css/swiper.min.css'
   import shopList from '../../components/shopList/shopList.vue'
+  import {mapState} from 'vuex'
   export default {
-    props: ['shopList'],
     mounted () {
-      /* eslint-disable no-new */
-       new Swiper('.swiper-container', {
-         loop: true,
-         pagination: {
-          el: '.swiper-pagination'
-        }
-      })
+      this.$store.dispatch('getCategories')
+      this.$store.dispatch('getShops')
+    },
+    computed: {
+      ...mapState(['address', 'categories']),
+      categoriesArr () {
+        const bigArr = []
+        let smallArr = []
+        this.categories.forEach(item => {
+          if (smallArr.length === 0) {
+            bigArr.push(smallArr)
+          }
+          smallArr.push(item)
+
+          if (smallArr.length === 8) {
+            smallArr = []
+          }
+        })
+        return bigArr
+      }
+    },
+    methods: {
+      goTo (path) {
+        this.$router.replace(path)
+      }
+    },
+    watch: {
+      'categories' () {
+        this.$nextTick(() => {
+          /* eslint-disable no-new */
+          new Swiper('.swiper-container', {
+            loop: true,
+            pagination: {
+              el: '.swiper-pagination'
+            }
+          })
+        })
+      }
     },
     components: {
       shopList

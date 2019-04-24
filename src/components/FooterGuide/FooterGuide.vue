@@ -34,6 +34,7 @@
   .footerList
     top-border-1px(#e4e4e4)
     background #fff
+    color #999
     position fixed
     bottom 0
     left 0

@@ -4,14 +4,18 @@
     <section class="order-no-login">
       <img src="../../assets/images/others/person.png">
       <h3>登录后查看外卖订单</h3>
-      <button>立即登录</button>
+      <button @click="goTo('/login')">立即登录</button>
     </section>
   </section>
 </template>
 
 <script>
   export default {
-    name: 'Order'
+    methods: {
+      goTo (path) {
+        this.$router.replace(path)
+      }
+    }
   }
 </script>
 

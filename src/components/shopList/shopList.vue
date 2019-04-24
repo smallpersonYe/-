@@ -1,182 +1,74 @@
 <template>
-  <div class="shop-content">
-    <div class="shop-list">
-      <div class="shop-list-left">
-        <img src="./images/shop/2.jpg" alt="">
-      </div>
-      <div class="shop-list-right">
-        <section class="shop-detail-header">
-          <h4 class="shop-title ellipsis" >锄禾日当午，汗滴禾下土</h4>
-          <ul class="shop-detail-ul">
-            <li class="supports">保</li>
-            <li class="supports">准</li>
-            <li class="supports">票</li>
-          </ul>
-        </section>
-        <section class="shop-rating-order">
-          <section class="shop-rating-order-left">
-            <div class="star star-24">
-              <span class="star-item on"></span>
-              <span class="star-item on"></span>
-              <span class="star-item on"></span>
-              <span class="star-item half"></span>
-              <span class="star-item off"></span>
-            </div>
-            <div class="rating-section">
-              3.6
-            </div>
-            <div class="order-section">
-              月售106单
-            </div>
+  <div>
+    <div class="shop-content" v-if="shops.length>0">
+      <div class="shop-list" @click="go(shops.length)" v-for="(item, index) in shops" :key="index">
+        <div class="shop-list-left">
+          <img :src="'https://fuss10.elemecdn.com' + item.image_path" alt="">
+        </div>
+        <div class="shop-list-right">
+          <section class="shop-detail-header">
+            <h4 class="shop-title ellipsis" >{{item.name}}</h4>
+            <ul class="shop-detail-ul">
+              <li class="supports" v-for="(support, index) in item.supports" :key="index">{{support.icon_name}}</li>
+            </ul>
           </section>
-          <section class="shop-rating-order-right">
-            <span class="delivery-style delivery-left">硅谷专送</span>
-            <span class="delivery-style delivery-right">准时达</span>
+          <section class="shop-rating-order">
+            <section class="shop-rating-order-left">
+              <div class="star star-24">
+                <span class="star-item on"></span>
+                <span class="star-item on"></span>
+                <span class="star-item on"></span>
+                <span class="star-item half"></span>
+                <span class="star-item off"></span>
+              </div>
+              <div class="rating-section">
+                {{item.rating}}
+              </div>
+              <div class="order-section">
+                月售{{item.recent_order_num}}单
+              </div>
+            </section>
+            <section class="shop-rating-order-right">
+              <span class="delivery-style delivery-left">{{item.delivery_mode.text}}</span>
+              <span class="delivery-style delivery-right">准时达</span>
+            </section>
           </section>
-        </section>
-        <section class="shop-distance">
-          <p class="shop-delivery-msg">
-            <span>¥20起送</span>
-            <span class="segmentation">/</span>
-            <span>配送费约¥5</span>
-          </p>
-        </section>
-      </div>
-    </div>
-    <div class="shop-list">
-      <div class="shop-list-left">
-        <img src="./images/shop/3.jpg" alt="">
-      </div>
-      <div class="shop-list-right">
-        <section class="shop-detail-header">
-          <h4 class="shop-title ellipsis" >锄禾日当午，汗滴禾下土</h4>
-          <ul class="shop-detail-ul">
-            <li class="supports">保</li>
-            <li class="supports">准</li>
-            <li class="supports">票</li>
-          </ul>
-        </section>
-        <section class="shop-rating-order">
-          <section class="shop-rating-order-left">
-            <div class="star star-24">
-              <span class="star-item on"></span>
-              <span class="star-item on"></span>
-              <span class="star-item on"></span>
-              <span class="star-item half"></span>
-              <span class="star-item off"></span>
-            </div>
-            <div class="rating-section">
-              3.6
-            </div>
-            <div class="order-section">
-              月售106单
-            </div>
+          <section class="shop-distance">
+            <p class="shop-delivery-msg">
+              <span>¥{{item.float_minimum_order_amount}}起送</span>
+              <span class="segmentation">/</span>
+              <span>{{item.piecewise_agent_fee.tips}}</span>
+            </p>
           </section>
-          <section class="shop-rating-order-right">
-            <span class="delivery-style delivery-left">硅谷专送</span>
-            <span class="delivery-style delivery-right">准时达</span>
-          </section>
-        </section>
-        <section class="shop-distance">
-          <p class="shop-delivery-msg">
-            <span>¥20起送</span>
-            <span class="segmentation">/</span>
-            <span>配送费约¥5</span>
-          </p>
-        </section>
+        </div>
       </div>
     </div>
-    <div class="shop-list">
-      <div class="shop-list-left">
-        <img src="./images/shop/4.jpg" alt="">
-      </div>
-      <div class="shop-list-right">
-        <section class="shop-detail-header">
-          <h4 class="shop-title ellipsis" >锄禾日当午，汗滴禾下土</h4>
-          <ul class="shop-detail-ul">
-            <li class="supports">保</li>
-            <li class="supports">准</li>
-            <li class="supports">票</li>
-          </ul>
-        </section>
-        <section class="shop-rating-order">
-          <section class="shop-rating-order-left">
-            <div class="star star-24">
-              <span class="star-item on"></span>
-              <span class="star-item on"></span>
-              <span class="star-item on"></span>
-              <span class="star-item half"></span>
-              <span class="star-item off"></span>
-            </div>
-            <div class="rating-section">
-              3.6
-            </div>
-            <div class="order-section">
-              月售106单
-            </div>
-          </section>
-          <section class="shop-rating-order-right">
-            <span class="delivery-style delivery-left">硅谷专送</span>
-            <span class="delivery-style delivery-right">准时达</span>
-          </section>
-        </section>
-        <section class="shop-distance">
-          <p class="shop-delivery-msg">
-            <span>¥20起送</span>
-            <span class="segmentation">/</span>
-            <span>配送费约¥5</span>
-          </p>
-        </section>
-      </div>
-    </div>
-    <div class="shop-list">
-      <div class="shop-list-left">
-        <img src="./images/shop/2.jpg" alt="">
-      </div>
-      <div class="shop-list-right">
-        <section class="shop-detail-header">
-          <h4 class="shop-title ellipsis" >锄禾日当午，汗滴禾下土</h4>
-          <ul class="shop-detail-ul">
-            <li class="supports">保</li>
-            <li class="supports">准</li>
-            <li class="supports">票</li>
-          </ul>
-        </section>
-        <section class="shop-rating-order">
-          <section class="shop-rating-order-left">
-            <div class="star star-24">
-              <span class="star-item on"></span>
-              <span class="star-item on"></span>
-              <span class="star-item on"></span>
-              <span class="star-item half"></span>
-              <span class="star-item off"></span>
-            </div>
-            <div class="rating-section">
-              3.6
-            </div>
-            <div class="order-section">
-              月售106单
-            </div>
-          </section>
-          <section class="shop-rating-order-right">
-            <span class="delivery-style delivery-left">硅谷专送</span>
-            <span class="delivery-style delivery-right">准时达</span>
-          </section>
-        </section>
-        <section class="shop-distance">
-          <p class="shop-delivery-msg">
-            <span>¥20起送</span>
-            <span class="segmentation">/</span>
-            <span>配送费约¥5</span>
-          </p>
-        </section>
-      </div>
+    <div v-else>
+      <li>
+        <img src="./images/shop_back.svg" alt="back">
+      </li>
+      <li>
+        <img src="./images/shop_back.svg" alt="back">
+      </li>
+      <li>
+        <img src="./images/shop_back.svg" alt="back">
+      </li>
     </div>
   </div>
 </template>
 
 <script>
-  export default {}
+  import {mapState} from 'vuex'
+  export default {
+    computed: {
+      ...mapState(['shops'])
+    },
+    methods: {
+      go (len) {
+        console.log(len)
+      }
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
