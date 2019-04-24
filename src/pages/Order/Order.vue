@@ -1,8 +1,6 @@
 <template>
   <section class="order">
-    <header class="header">
-      <span class="header-title-text">订单</span>
-    </header>
+    <Header title="订单"/>
     <section class="order-no-login">
       <img src="../../assets/images/others/person.png">
       <h3>登录后查看外卖订单</h3>
@@ -20,22 +18,6 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../../assets/stylus/mixin.styl"
   .order
-    .header
-      bottom-border-1px(#fff)
-      height 45px
-      width 100%
-      background #02a774
-      position fixed
-      top 0
-      left 0
-      right 0
-      color #fff
-      font-size 20px
-      .header-title-text
-        position absolute
-        top 50%
-        left 50%
-        transform translate(-50%,-50%)
     .order-no-login
       padding-top 140px
       width 60%

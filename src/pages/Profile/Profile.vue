@@ -1,9 +1,7 @@
 <template>
   <section class="profile">
-    <header class="header">
-      <span class="header-title-text">个人中心</span>
-    </header>
-    <section class="profile-login">
+    <Header title="个人中心"/>
+    <section class="profile-login" @click="goTo('login')">
       <div class="profile-image">
         <i class="iconfont icon-person"></i>
       </div>
@@ -89,28 +87,17 @@
 
 <script>
   export default {
+    methods: {
+      goTo (path) {
+        this.$router.replace(path)
+      }
+    }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../../assets/stylus/mixin.styl"
   .profile
-    .header
-      bottom-border-1px(#fff)
-      height 45px
-      width 100%
-      background #02a774
-      position fixed
-      top 0
-      left 0
-      right 0
-      color #fff
-      font-size 20px
-      .header-title-text
-        position absolute
-        top 50%
-        left 50%
-        transform translate(-50%,-50%)
     .profile-login
       clearFix()
       margin-top 45px

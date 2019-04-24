@@ -1,8 +1,6 @@
 <template>
   <section class="search">
-    <header class="header">
-      <span class="header-title-text">搜索</span>
-    </header>
+    <Header title="搜索"/>
     <form class="search-form" action="#">
       <input type="search" name="search" placeholder="请输入商家或美食名称" class="search-input">
       <input type="submit" name="submit" class="search-submit">
@@ -20,22 +18,6 @@
   @import "../../assets/stylus/mixin.styl"
   .search
     width 100%
-    .header
-      bottom-border-1px(#fff)
-      height 45px
-      width 100%
-      background #02a774
-      position fixed
-      top 0
-      left 0
-      right 0
-      color #fff
-      font-size 20px
-      .header-title-text
-        position absolute
-        top 50%
-        left 50%
-        transform translate(-50%,-50%)
     .search-form
       width 100%
       clearFix()
